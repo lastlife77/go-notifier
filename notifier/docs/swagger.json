@@ -1,0 +1,100 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/notify": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "Create notify",
+                "parameters": [
+                    {
+                        "description": "Notify",
+                        "name": "notify",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Notify"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/notify/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "Get status",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notify"
+                ],
+                "summary": "Delete notify",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "domain.Notify": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "Message 1"
+                },
+                "time": {
+                    "description": "yyyy-mm-dd HH:MM",
+                    "type": "string",
+                    "example": "yyyy-mm-dd HH:MM"
+                }
+            }
+        }
+    }
+}

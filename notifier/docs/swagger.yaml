@@ -1,0 +1,66 @@
+definitions:
+  domain.Notify:
+    properties:
+      id:
+        example: "1"
+        type: string
+      msg:
+        example: Message 1
+        type: string
+      time:
+        description: yyyy-mm-dd HH:MM
+        example: yyyy-mm-dd HH:MM
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /notify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Notify
+        in: body
+        name: notify
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Notify'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create notify
+      tags:
+      - notify
+  /notify/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete notify
+      tags:
+      - notify
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get status
+      tags:
+      - notify
+swagger: "2.0"

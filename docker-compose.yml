@@ -1,0 +1,46 @@
+services:
+  notifier:
+    image: notifier
+    build:
+      context: ./notifier
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      RABBITMQ_PORT: "5672"
+      NOTIFIER_PORT: "8080"
+    networks:
+      - rabbitmq_network
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - rabbitmq_network
+    healthcheck:
+      test:
+        - CMD
+        - rabbitmq-diagnostics
+        - "-q"
+        - ping
+      retries: 3
+      timeout: 5s
+      interval: 5s
+volumes:
+  rabbitmq_data:
+    driver: local
+
+networks:
+  rabbitmq_network:
+    driver: bridge
